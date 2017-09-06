@@ -148,7 +148,7 @@ export function postCreatedTicket(newTicket, boardid, panelid, userid) {
   return (dispatch => {
     axios.post('/api/tickets', {ticket: newTicket, panelid: panelid, userid: userid})
       .then(() => {
-        return getTicketsByPanels(panelid);
+        return getTicketsByPanel(panelid);
       })
       .then(response => {
         dispatch(setTickets(response)); 
