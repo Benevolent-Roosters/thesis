@@ -78,7 +78,7 @@ export function getPanelsByBoard(boardid) {
 
 /** Grab all the tickets associated with a board's panels **/
 //TODO: sorting tickets in order of completion, followed by urgency
-export function getTicketsByPanels(panelId) {
+export function getTicketsByPanel(panelId) {
   return dispatch => {
     axios.get('/api/tickets', {panel_id: panelId})
       .then(response => {
@@ -86,7 +86,7 @@ export function getTicketsByPanels(panelId) {
         return response.body;
       })
       .catch(err => {
-        console.log('Error in getTicketsByPanels: ', err);
+        console.log('Error in getTicketsByPanel: ', err);
       });
   };
 }
@@ -132,7 +132,7 @@ export function postCreatedTicket(newTicket, boardid, panelid, userid) {
   return (dispatch => {
     axios.post('/api/tickets', {ticket: newTicket, panelid: panelid, userid: userid})
       .then(() => {
-        return getTicketsByPanels(panelid);
+        return getTicketsByPanel(panelid);
       })
       .then(response => {
         dispatch(setTickets(response)); 
