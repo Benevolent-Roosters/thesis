@@ -39,13 +39,6 @@ class App extends React.Component {
     return closest;
   }
 
-  orderTickets(tickets) {
-    // let newOrdered = [];
-    // for (let ticket of tickets) {
-    //   if ()
-    // }
-  }
-
   render() {
     return (
       <div>HELLO</div>
@@ -77,9 +70,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     handleSetCurrentPanel(panel) {
       dispatch(setCurrentPanel(panel));
-    },
-    handleSetTickets(tickets) {
-      dispatch(setTickets(tickets));
     }
   };
 };

@@ -137,8 +137,7 @@ export function postCreatedPanel(newPanel, boardid, userid) {
         return getPanelsByBoard(boardid);
       })
       .then(response => {
-        // to ensure we don't get duplicates of all current panels in the board, only append the latest created panel
-        dispatch(setPanels(response[response.length - 1]));
+        dispatch(setPanels(response));
         dispatch(setCurrentPanel(response[response.length - 1])); //new panel is now current
       });
   });
@@ -149,11 +148,10 @@ export function postCreatedTicket(newTicket, boardid, panelid, userid) {
   return (dispatch => {
     axios.post('/api/tickets', {ticket: newTicket, panelid: panelid, userid: userid})
       .then(() => {
-        return getTicketsByPanel(panelid);
+        return getTicketsByPanels(panelid);
       })
       .then(response => {
-        // to ensure we don't get duplicates of all current tickets in the panel, only append the latest created ticket
-        dispatch(setTickets(response[response.length - 1])); 
+        dispatch(setTickets(response)); 
         //no need to set current ticket upon creation
       });
   });
