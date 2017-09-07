@@ -20,7 +20,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    handleEditCurrentTickets(event) {
+    handleEditCurrentTicket(event) {
       dispatch(editCurrentTicket(/**ticketObj from event **/));
     },
 
