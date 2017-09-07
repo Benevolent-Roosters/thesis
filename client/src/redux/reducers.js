@@ -1,28 +1,17 @@
-import { SET_USER, SET_CURRENT_BOARD, SET_BOARDS, SET_PANELS, SET_TICKETS, EDIT_CURRENT_BOARD, EDIT_BOARDS, EDIT_PANELS, EDIT_CURRENT_PANEL } from './actions';
+import { SET_USER, SET_CURRENT_BOARD, SET_BOARDS, SET_PANELS, SET_TICKETS, EDIT_CURRENT_BOARD, EDIT_BOARDS, EDIT_PANELS, EDIT_CURRENT_PANEL, EDIT_TICKETS, EDIT_CURRENT_TICKET } from './actions';
 
 const defaultState = {
   user: {
-
   },
-
   boards: [],
-
   panels: [],
-
   tickets: [],
-
   currentBoard: {
-
   },
-
   currentTicket: {
-
   },
-
   currentPanel: {
-
   }
-
 };
 
 const rootReducer = (state = defaultState, action) => {
@@ -47,6 +36,10 @@ const rootReducer = (state = defaultState, action) => {
       return reduceEditPanels(state, action);
     case EDIT_CURRENT_PANEL:
       return reduceEditCurrentPanel(state, action);
+    case EDIT_TICKETS:
+      return reduceEditTickets(state, action);
+    case EDIT_CURRENT_TICKET:
+      return reduceEditCurrentTicket(state, action);
     default:
       return state;
   }
@@ -60,10 +53,20 @@ const reduceSetCurrentPanel = (state, action) => Object.assign({}, state, {curre
 
 const reduceSetBoards = (state, action) => Object.assign({}, state, {boards: boards.concat(action.value)});
 
- const reduceSetPanels = (state, actions) => Object.assign({}, state, {panels: panels.concat(action.value)});
+const reduceSetPanels = (state, action) => Object.assign({}, state, {panels: panels.concat(action.value)});
+
+const reduceSetTickets = (state, action) => Object.assign({}, state, {tickets: tickets.concat(action.value)});
+
+const reduceEditBoards = (state, action) => Object.assign({}, state, {boards: action.value});
+
+const reduceEditCurrentBoard = (state, action) => Object.assign({}, state, {currentBoard: action.value});
+
+const reduceEditPanels = (state, action) => Object.assign({}, state, {panels: action.value});
 
 const reduceEditCurrentPanel = (state, action) => Object.assign({}, state, {currentPanel: action.value});
 
-const reduceEditPanels = (state, action) => Object.assign({}, state, {panels: action.value});
+const reduceEditTickets = (state, action) => Object.assign({}, state, {tickets: action.value});
+
+const reduceEditCurrentTicket = (state, action) => Object.assign({}, state, {currentTicket: action.value});
 
 export default rootReducer;

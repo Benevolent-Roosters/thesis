@@ -16,7 +16,7 @@ class App extends React.Component {
       })
 
       .then (boards => {
-        return this.props.handleSetPanels(boards[0].board_id);
+        return this.props.handleSetPanels(boards[0].id);
       })
 
       .then(panels => {
