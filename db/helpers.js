@@ -84,7 +84,7 @@ module.exports.updateUserById = function(userId, data) {
     })
     .then(user => {
       console.log(`User ${user.toJSON().github_handle} updated!`);
-      return user;
+      return user.toJSON();
     })
     .error(err => {
       console.log('Unable to update user', err);
@@ -107,14 +107,17 @@ module.exports.addUserToBoard = function(userId, boardId) {
       }
       return user.memberOfBoards().attach(boardId);
     })
-    .then( () => {
+    .then((result) => {
       console.log(`User ID ${userId} added to boardId ${boardId}`);
+      return result.toJSON();
     })
     .error(err => {
       console.log('Unable to add user to board');
+      throw err;
     })
     .catch(user => {
       console.log(`User ${user.toJSON().github_handle} already belongs to board ID ${boardId}`);
+      throw user;
     });
 };
 
@@ -131,9 +134,9 @@ module.exports.getUsersByBoard = function(boardId) {
         });
       }
     })
-    .then((users, board) => {
+    .then((users) => {
       if (users.length === 0) {
-        throw board;
+        throw users;
       }
       return users.toJSON();
     })
@@ -141,9 +144,9 @@ module.exports.getUsersByBoard = function(boardId) {
       console.log(`Unable to fetch users for Board ID ${boardId}: `, err);
       throw err;
     })
-    .catch(board => {
-      console.log(`No users found for board ${board.board_name}`);
-      throw board;
+    .catch(users => {
+      console.log(`No users found for that board. Try again!`);
+      throw users;
     });
 };
 
@@ -160,9 +163,9 @@ module.exports.getBoardsByUser = function(userId) {
         });
       }
     })
-    .then((boards, user) => {
+    .then((boards) => {
       if (boards.length === 0) {
-        throw user;
+        throw boards;
       }
       return boards.toJSON();
     })
@@ -170,9 +173,9 @@ module.exports.getBoardsByUser = function(userId) {
       console.log(`Unable to fetch boards for User ID ${userId}: `, err);
       throw err;
     })
-    .catch(user => {
-      console.log(`No boards found for user ${user.github_handle}`);
-      throw board;
+    .catch(boards => {
+      console.log('No boards found for that user!');
+      throw boards;
     });
 };
 
@@ -187,7 +190,7 @@ module.exports.createBoard = function(data) {
     })
     .then(board => {
       console.log(`Board ${board.board_name} saved!`);
-      return board;
+      return board.toJSON();
     })
     .error(err => {
       console.log('Unable to create board', err);
@@ -229,7 +232,7 @@ module.exports.updateBoardById = function(boardId, data) {
     })
     .then(board => {
       console.log(`Board ${board.toJSON().board_name} updated!`);
-      return user;
+      return board.toJSON();
     })
     .error(err => {
       console.log('Unable to update board', err);
@@ -253,6 +256,7 @@ module.exports.createPanel = function(data) {
     })
     .then(panel => {
       console.log(`Panel ${panel.toJSON().name} saved!`);
+      return panel.toJSON();
     })
     .error(err => {
       console.log('Unable to create panel', err);
@@ -320,7 +324,7 @@ module.exports.updatePanelById = function(panelId, data) {
     })
     .then(panel => {
       console.log(`Panel ${panel.toJSON().name} updated!`);
-      return panel;
+      return panel.toJSON();
     })
     .error(err => {
       console.log('Unable to update panel', err);
@@ -344,6 +348,7 @@ module.exports.createTicket = function(data) {
     })
     .then(ticket => {
       console.log(`Ticket ${ticket.toJSON().title} saved!`);
+      return ticket.toJSON();
     })
     .error(err => {
       console.log('Unable to create ticket', err);
@@ -464,6 +469,7 @@ module.exports.updateTicketById = function(ticketId, data) {
     })
     .then(ticket => {
       console.log(`Ticket ${ticket.toJSON().title} updated!`);
+      return ticket.toJSON();
     })
     .error(err => {
       console.log('Unable to update ticket', err);
