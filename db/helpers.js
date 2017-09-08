@@ -42,7 +42,7 @@ module.exports.createUser = function(data) {
     })
     .then(user => {
       console.log(`User ${user.github_handle} saved!`);
-      return user;
+      return user.toJSON();
     })
     .error(err => {
       console.log('Unable to create user', err);
