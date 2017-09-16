@@ -271,6 +271,7 @@ module.exports.verifyBoardOwnerOrInviteeElse401 = (req, res, next) => {
     });
 };
 
+
 module.exports.session = session({
   store: new RedisStore({
     client: redisClient
