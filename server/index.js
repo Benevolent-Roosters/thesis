@@ -11,3 +11,4 @@ const knex = require('knex')(require('../knexfile'));
 app.listen(PORT, () => {
   console.log('Example app listening on port ', PORT);
 });
+
