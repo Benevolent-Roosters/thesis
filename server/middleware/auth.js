@@ -1,10 +1,12 @@
 const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
-const redisClient = require('redis').createClient();
+const redisClient = require('redis').createClient('6379', 'otterio-redis-v2.kdm0tv.ng.0001.usw1.cache.amazonaws.com');
 const models = require('../../db/models');
 const dbhelper = require('../../db/helpers.js');
 const helper = require('../controllers/helper');
 
+
+console.log(redisClient);
 //for testing purposes to set up a fake login session
 module.exports.fakemiddleware = (req, res, next) => {
   if (req && req.session && req.session.user_tmp) {
@@ -29,7 +31,6 @@ module.exports.verifyElse401 = (req, res, next) => {
   res.sendStatus(401);
 };
 
-
 module.exports.verifyAPIKey = (req, res, next) => {
   if (!req.params && !req.body && !req.query) {
     res.status(400).send('API key could not be found in request');
@@ -40,7 +41,9 @@ module.exports.verifyAPIKey = (req, res, next) => {
       if (!user) {
         return res.status(401).send();
       } else if (Object.keys(req.query).length === 1 && (req.query.hasOwnProperty('api_key'))) {
+
         let userInfo = {id: user.id, github_handle: user.github_handle, api_key: user.api_key, board_id: req.query.board_id} ;
+
         return res.status(200).send(JSON.stringify(userInfo));
       } else { /** IF REQUEST WAS NOT SPECIFICALLY FOR API_KEY VERIFICATION **/
         return next();
@@ -68,6 +71,7 @@ module.exports.verifyBoardMemberElse401 = (req, res, next) => {
   } else {
     boardid = parseInt(req.query.board_id);
   }
+
   var userId = req.user ? req.user.id : req.query.user_id;
 
   // return models.User.where({ id: userId }).fetch({withRelated:['memberOfBoards']})
@@ -205,11 +209,10 @@ module.exports.verifyTicketMemberElse401 = (req, res, next) => {
     });
 };
 
+
 module.exports.session = session({
   store: new RedisStore({
-    client: redisClient,
-    host: 'localhost',
-    port: 6379
+    client: redisClient
   }),
   secret: 'more laughter, more love, more life',
   resave: false,

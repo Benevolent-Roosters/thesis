@@ -24,6 +24,7 @@ router.route('/api_key')
 router.route('/board')
 .get(BoardController.getOneBoardByRepoUrl);
 
+
 //Route to get a Tickets for a User
 router.route('/tickets')
 .get(middleware.auth.verifyBoardMemberElse401, TicketController.getUserTicketsByBoard);
