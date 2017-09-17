@@ -4,7 +4,7 @@
   "scripts": {
     "postinstall": "curl -s https://raw.githubusercontent.com/reactorcore/pomander/master/bin/install | bash",
     "start": "nodemon server",
-    "test": "jest NODE_ENV=test grunt test",
+    "test": "NODE_ENV=test grunt test",
     "testUpdate": "jest -u NODE_ENV=test grunt test",
     "build": "webpack --watch"
   },
@@ -17,6 +17,7 @@
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.1",
     "bookshelf": "^0.10.3",
+    "cli-table": "^0.3.1",
     "config": "^1.26.1",
     "connect-flash": "^0.1.1",
     "connect-redis": "^3.2.0",
