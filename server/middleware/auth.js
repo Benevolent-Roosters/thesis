@@ -1,6 +1,6 @@
 const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
-const redisClient = require('redis').createClient('6379', 'otterio-redis-v2.kdm0tv.ng.0001.usw1.cache.amazonaws.com');
+const redisClient = require('redis').createClient('6379', 'localhost');
 const models = require('../../db/models');
 const dbhelper = require('../../db/helpers.js');
 const helper = require('../controllers/helper');
