@@ -30,7 +30,7 @@ module.exports.getPanelTicketsByUser = (req, res) => {
   }
   
   var panelId = req.query.panel_id;
-  dbhelper.getTicketsByPanel(panelId)
+  dbhelper.getTicketsByPanel(parseInt(panelId))
     .then(tickets => {
       if (!tickets) {
         throw 'cant get tickets by panel id';
