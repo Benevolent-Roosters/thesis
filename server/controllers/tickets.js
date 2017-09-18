@@ -136,7 +136,7 @@ module.exports.getUserTicketsByBoard = (req, res) => {
   
   var userHandle = req.query.github_handle;
   var boardId = req.query.board_id;
-  dbhelper.getTicketsByUserHandleAndBoard(userHandle, boardId)
+  dbhelper.getTicketsByUserHandleAndBoard(userHandle, parseInt(boardId))
     .then(tickets => {
       if (!tickets) {
         throw 'cant get tickets by panel id';
